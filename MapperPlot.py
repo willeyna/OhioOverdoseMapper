@@ -17,9 +17,9 @@ def PlotMapper(df, n_intervals, overlap, columns = None, plot_dim=2):
 
     if columns == None:
         columns = df.columns
-    # use no projection function just the raw data
+    # use identity projection function onto chosen columns
     filter_func = Projection()
-    # Define cover
+    # define cover
     cover = CubicalCover(n_intervals=n_intervals, overlap_frac=overlap)
     # Choose clustering algorithm - default is DBSCAN
     clusterer = DBSCAN()
@@ -43,8 +43,10 @@ def PlotMapper(df, n_intervals, overlap, columns = None, plot_dim=2):
 # Read in data and change parameters for the Mapper plot in the lines below
 ###########################################################################
 
-df = pd.read_csv("ohio_drugdeaths.csv")
+# change input file here
+df = pd.read_csv("./Data/ohio_drugdeaths.csv")
+# choose features used in Mapper clustering here
+features = ['month', 'lat', 'lng', 'cumulative_deaths']
 
-# features = ['unemployment_rate', 'PCT_poverty']
 print("Building Mapper Graph...")
-PlotMapper(df, n_intervals = 6, overlap = .25, plot_dim=2)
+PlotMapper(df, n_intervals = 10, overlap = .5, plot_dim=3)
